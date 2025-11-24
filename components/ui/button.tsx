@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-mono tracking-[0.2em] uppercase text-xs font-bold transition-all duration-150 disabled:pointer-events-none disabled:opacity-25 [&_svg:not([class*='size-'])]:size-4 outline-none relative overflow-hidden group cursor-pointer",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-mono tracking-[0.2em] uppercase text-lg font-bold transition-all duration-150 disabled:pointer-events-none disabled:opacity-25 [&_svg:not([class*='size-'])]:size-4 outline-none relative overflow-hidden group cursor-pointer",
   {
     variants: {
       variant: {
@@ -12,9 +12,12 @@ const buttonVariants = cva(
           bg-[#001a1a] text-emerald-300 border border-emerald-500/70 clip-corners
           hover:bg-[#002626] hover:border-emerald-400 hover:text-emerald-200
           shadow-[inset_0_1px_0_0_rgba(6,182,212,0.25),0_0_0_1px_rgba(6,182,212,0.2)]
-          hover:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.4),0_0_12px_rgba(6,182,212,0.35)]
-          before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.15),transparent)]
+          hover:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.4),0_0_16px_rgba(6,182,212,0.5),0_0_24px_rgba(6,182,212,0.3)]
+          before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent,rgba(6,182,212,0.25),transparent)]
           before:-translate-x-full hover:before:translate-x-full before:duration-500
+          after:absolute after:inset-0 after:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.1)_50%,transparent_100%)]
+          after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300
+          hover:animate-glitch
 
           data-[theme=light]:bg-white
           data-[theme=light]:text-emerald-700
@@ -25,18 +28,21 @@ const buttonVariants = cva(
           data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(16,185,129,0.2),0_0_0_1px_rgba(16,185,129,0.15)]
         `,
         destructive: `
-          bg-[#1a0000] text-red-300 border border-red-500/70 clip-corners
-          hover:bg-[#260000] hover:border-red-400
+          bg-[#1a0000] text-rose-300 border border-rose-500/70 clip-corners
+          hover:bg-[#260000] hover:border-rose-400
           shadow-[inset_0_1px_0_0_rgba(239,68,68,0.25),0_0_0_1px_rgba(239,68,68,0.2)]
-          hover:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.4),0_0_12px_rgba(239,68,68,0.35)]
-          before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent,rgba(239,68,68,0.18),transparent)]
+          hover:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.4),0_0_16px_rgba(239,68,68,0.5),0_0_24px_rgba(239,68,68,0.3)]
+          before:absolute before:inset-0 before:bg-[linear-gradient(90deg,transparent,rgba(239,68,68,0.25),transparent)]
           before:-translate-x-full hover:before:translate-x-full before:duration-500
+          after:absolute after:inset-0 after:bg-[linear-gradient(0deg,transparent_0%,rgba(239,68,68,0.1)_50%,transparent_100%)]
+          after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300
+          hover:animate-glitch
 
-          data-[theme=light]:bg-red-50
-          data-[theme=light]:text-red-700
-          data-[theme=light]:border-red-300
-          data-[theme=light]:hover:bg-red-100
-          data-[theme=light]:hover:border-red-400
+          data-[theme=light]:bg-rose-50
+          data-[theme=light]:text-rose-700
+          data-[theme=light]:border-rose-300
+          data-[theme=light]:hover:bg-rose-100
+          data-[theme=light]:hover:border-rose-400
           data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(239,68,68,0.2),0_0_0_1px_rgba(239,68,68,0.15)]
         `,
       },
@@ -57,28 +63,21 @@ const buttonVariants = cva(
 )
 
 
-
-const useButtonSound = () => {
-  const play = () => {}
-  return play
-}
-
 function Button({
   className,
   variant,
   size,
   asChild = false,
   onClick,
+  children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
   }) {
   const Comp = asChild ? Slot : "button"
-  const play = useButtonSound()
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    play()
     onClick?.(e)
   }
 
@@ -88,7 +87,11 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       onClick={handleClick}
       {...props}
-    />
+    >
+      <span className="relative z-10 flex items-center justify-center gap-2">
+        {children}
+      </span>
+    </Comp>
   )
 }
 
@@ -102,6 +105,41 @@ if (typeof document !== "undefined") {
         0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px,
         100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px)
       );
+    }
+    
+    @keyframes glitch {
+      0%, 100% { 
+        transform: translate(0);
+      }
+      20% { 
+        transform: translate(-2px, 1px);
+      }
+      40% { 
+        transform: translate(2px, -1px);
+      }
+      60% { 
+        transform: translate(-1px, 2px);
+      }
+      80% { 
+        transform: translate(1px, -2px);
+      }
+    }
+    
+    @keyframes scanline {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 0 100%;
+      }
+    }
+    
+    .animate-glitch {
+      animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2;
+    }
+    
+    button[data-slot="button"]:hover::before {
+      animation: scanline 0.5s linear infinite;
     }
   `
   document.head.appendChild(style)

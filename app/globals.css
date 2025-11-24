@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer base {
+  :root {
+    --font-mono: "Bitcount Grid Single", monospace;
+  }
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
