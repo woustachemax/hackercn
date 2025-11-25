@@ -17,7 +17,7 @@ const buttonVariants = cva(
           before:-translate-x-full hover:before:translate-x-full before:duration-500
           after:absolute after:inset-0 after:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.1)_50%,transparent_100%)]
           after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300
-          hover:animate-glitch
+          hover: animate-glotch
 
           data-[theme=light]:bg-white
           data-[theme=light]:text-emerald-700
