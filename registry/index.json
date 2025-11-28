@@ -1,13 +1,90 @@
 {
   "name": "glitchcn",
   "type": "registry:style",
-  "registryUrl": "https://glitchcn.com/registry",
+  "registryUrl": "https://glitchcn-ui.vercel.app/api/registry",
   "description": "Terminal-styled cyberpunk component library",
   "author": "woustachemax",
   "styles": [
     {
       "name": "glitchcn",
       "label": "GlitchCN"
+    }
+  ],
+  "components": [
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "files": ["glitchcn/alert.json"]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "files": ["glitchcn/badge.json"]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "files": ["glitchcn/button.json"]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "files": ["glitchcn/card.json"]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "files": ["glitchcn/command.json"]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "files": ["glitchcn/dialog.json"]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "files": ["glitchcn/input.json"]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "files": ["glitchcn/progress.json"]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "files": ["glitchcn/seperator.json"]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "files": ["glitchcn/sheet.json"]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "files": ["glitchcn/sidebar.json"]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "files": ["glitchcn/skeleton.json"]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "files": ["glitchcn/table.json"]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "files": ["glitchcn/tabs.json"]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "files": ["glitchcn/tooltip.json"]
     }
   ]
 }
