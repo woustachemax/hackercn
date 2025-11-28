@@ -1,0 +1,12 @@
+{
+  "name": "input",
+  "type": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/input.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}

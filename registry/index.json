@@ -1,0 +1,13 @@
+{
+  "name": "glitchcn",
+  "type": "registry:style",
+  "registryUrl": "https://glitchcn.com/registry",
+  "description": "Terminal-styled cyberpunk component library",
+  "author": "woustachemax",
+  "styles": [
+    {
+      "name": "glitchcn",
+      "label": "GlitchCN"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "button",
+  "type": "registry:ui",
+  "dependencies": ["class-variance-authority", "@radix-ui/react-slot"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/button.tsx",
+      "type": "registry:ui"
+    }
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "animation": {
+            "glitch": "glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2",
+            "scanline": "scanline 0.5s linear infinite"
+          },
+          "keyframes": {
+            "glitch": {
+              "0%, 100%": { "transform": "translate(0)" },
+              "20%": { "transform": "translate(-2px, 1px)" },
+              "40%": { "transform": "translate(2px, -1px)" },
+              "60%": { "transform": "translate(-1px, 2px)" },
+              "80%": { "transform": "translate(1px, -2px)" }
+            },
+            "scanline": {
+              "0%": { "background-position": "0 0" },
+              "100%": { "background-position": "0 100%" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

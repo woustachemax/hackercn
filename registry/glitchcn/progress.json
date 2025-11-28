@@ -1,0 +1,29 @@
+{
+  "name": "progress",
+  "type": "registry:ui",
+  "dependencies": ["@radix-ui/react-progress"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/progress.tsx",
+      "type": "registry:ui"
+    }
+  ],
+  "tailwind": {
+    "config": {
+      "theme": {
+        "extend": {
+          "animation": {
+            "shimmer": "shimmer 2s linear infinite"
+          },
+          "keyframes": {
+            "shimmer": {
+              "0%": { "background-position": "-200% 0" },
+              "100%": { "background-position": "200% 0" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

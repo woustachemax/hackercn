@@ -1,0 +1,12 @@
+{
+  "name": "badge",
+  "type": "registry:ui",
+  "dependencies": ["class-variance-authority", "@radix-ui/react-slot"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "ui/badge.tsx",
+      "type": "registry:ui"
+    }
+  ]
+}
