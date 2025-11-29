@@ -1,63 +1,39 @@
-const fs = require('fs');
-const path = require('path');
+import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 
-const componentsDir = path.join(__dirname, 'components', 'ui');
-const registryDir = path.join(__dirname, 'registry', 'glitchcn');
+export const dynamic = 'force-static';
 
-const componentDeps: Record<string, string[]> = {
-  alert: ['class-variance-authority'],
-  badge: ['class-variance-authority'],
-  button: ['@radix-ui/react-slot', 'class-variance-authority'],
-  card: [],
-  command: ['cmdk', '@radix-ui/react-dialog'],
-  dialog: ['@radix-ui/react-dialog'],
-  input: [],
-  progress: ['@radix-ui/react-progress'],
-  separator: ['@radix-ui/react-separator'],
-  sheet: ['@radix-ui/react-dialog', 'class-variance-authority'],
-  sidebar: ['@radix-ui/react-separator', '@radix-ui/react-slot'],
-  skeleton: [],
-  table: [],
-  tabs: ['@radix-ui/react-tabs'],
-  tooltip: ['@radix-ui/react-tooltip'],
-};
-
-const componentFiles = fs.readdirSync(componentsDir);
-
-componentFiles.forEach((file: string) => {
-  if (!file.endsWith('.tsx')) return;
-  
-  const componentName = file.replace('.tsx', '');
-  const componentPath = path.join(componentsDir, file);
-  const content = fs.readFileSync(componentPath, 'utf8');
-  
-  const registryData = {
-    name: componentName,
-    type: 'registry:ui',
-    dependencies: componentDeps[componentName] || [],
-    devDependencies: [],
-    registryDependencies: [],
-    files: [
-      {
-        path: `components/ui/${file}`,
-        content: content,
-        type: 'registry:ui',
-        target: `components/ui/${file}`
-      }
-    ],
-    tailwind: {
-      config: {
-        theme: {
-          extend: {}
-        }
-      }
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ path: string[] }> }
+) {
+  try {
+    const resolvedParams = await params;
+    const requestedPath = resolvedParams.path.join('/');
+    
+    if (requestedPath === 'index.json' || requestedPath === '') {
+      const indexPath = path.join(process.cwd(), 'registry', 'index.json');
+      const fileContents = fs.readFileSync(indexPath, 'utf8');
+      return NextResponse.json(JSON.parse(fileContents));
     }
-  };
-  
-  const outputPath = path.join(registryDir, `${componentName}.json`);
-  fs.writeFileSync(outputPath, JSON.stringify(registryData, null, 2));
-  console.log(`Generated: ${componentName}.json`);
-});
-
-console.log('\nRegistry generation complete!');
-console.log('Note: Fix separator typo (seperator.json -> separator.json)');
+    
+    const filePath = path.join(process.cwd(), 'registry', requestedPath);
+    const jsonPath = filePath.endsWith('.json') ? filePath : `${filePath}.json`;
+    
+    if (!fs.existsSync(jsonPath)) {
+      return NextResponse.json(
+        { error: 'not found' },
+        { status: 404 }
+      );
+    }
+    
+    const fileContents = fs.readFileSync(jsonPath, 'utf8');
+    return NextResponse.json(JSON.parse(fileContents));
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'failed' },
+      { status: 500 }
+    );
+  }
+}
