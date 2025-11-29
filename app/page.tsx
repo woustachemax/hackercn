@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,18 +8,18 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Terminal, Cpu, Shield, Activity, Lock, AlertTriangle, CheckCircle, Github, Zap, Code, Database, Network, HardDrive, Server, Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
-  const [configCopied, setConfigCopied] = useState(false);
 
   const copyInstallCommand = () => {
-    navigator.clipboard.writeText("npx shadcn@latest add https://glitchcn-ui.vercel.app/r/button.json");
+    navigator.clipboard.writeText("npx shadcn@latest add https://glitchcn-ui.vercel.app/r/[component].json");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -29,13 +30,18 @@ export default function Home() {
       
       <div className="relative max-w-[1800px] mx-auto space-y-2 sm:space-y-3">
         <header className="flex items-center justify-between p-2 sm:p-3 border-b border-emerald-500/30">
-          <div className="flex items-center gap-2 group cursor-pointer">
+          <Link href="/" className="flex items-center gap-2 group cursor-pointer">
             <Terminal className="text-cyan-400" size={20} />
             <h1 className="font-mono text-lg sm:text-2xl font-bold tracking-wider text-emerald-300">Glitchcn/ui</h1>
             <span className="font-mono text-xs text-emerald-400/50 ml-1 sm:ml-2 hidden sm:inline">v1.0.0</span>
-          </div>
+          </Link>
           <div className="flex gap-2">
-            <Button size="sm" className="hidden sm:inline-flex" asChild><a href="#components">Docs</a></Button>
+            <Button size="sm" className="hidden sm:inline-flex" asChild onClick={()=>router.push('/docs')}>
+              Docs
+            </Button>
+            <Button size="sm" className="hidden sm:inline-flex" asChild onClick={()=>router.push('/docs/components')}>
+              Components
+            </Button>
             <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn-ui", "_blank")}>
               <Github size={14} />
             </Button>
@@ -59,7 +65,11 @@ export default function Home() {
                   <div className="flex justify-between"><span>Alerts</span><Badge>✓</Badge></div>
                 </div>
               </CardContent>
-              <CardFooter><Button size="sm" asChild><a href="#components">View All</a></Button></CardFooter>
+              <CardFooter>
+                <Button size="sm" asChild onClick={()=>router.push('/docs/c')}>
+                  View All
+                </Button>
+              </CardFooter>
             </Card>
 
             <Card>
@@ -69,7 +79,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="p-2 bg-black/40 rounded text-xs border border-emerald-500/30 font-mono overflow-x-auto">
-                  <pre className="text-emerald-300">npx shadcn add{'\n'}glitchcn-ui.vercel.app{'\n'}/r/button.json</pre>
+                  <pre className="text-emerald-300">npx shadcn add{'\n'}glitchcn-ui.vercel.app{'\n'}/r/[component].json</pre>
                 </div>
               </CardContent>
               <CardFooter>
@@ -93,7 +103,11 @@ export default function Home() {
                   <div className="flex items-center gap-1"><Code size={12} className="text-purple-400" /><span>TypeScript</span></div>
                 </div>
               </CardContent>
-              <CardFooter><Button size="sm" asChild><a href="https://github.com/woustachemax/glitchcn-ui" target="_blank" rel="noopener noreferrer">GitHub</a></Button></CardFooter>
+              <CardFooter>
+                <Button size="sm" onClick={() => window.open("https://github.com/woustachemax/glitchcn", "_blank")}>
+                  GitHub
+                </Button>
+              </CardFooter>
             </Card>
 
             <Alert>
@@ -357,10 +371,9 @@ export default function Home() {
           </div>
 
           <div className="col-span-1 lg:col-span-12">
-            <Separator />
-            <footer className="text-center py-3">
+            <footer className="text-end py-3">
               <p className="font-mono text-xs text-emerald-400/70">
-                Made with 💚 by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
+                 $ Made with 💚 by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
               </p>
             </footer>
           </div>
