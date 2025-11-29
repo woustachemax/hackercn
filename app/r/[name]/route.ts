@@ -10,7 +10,8 @@ export async function GET(
 ) {
   try {
     const { name } = await params;
-    const filePath = path.join(process.cwd(), 'registry', 'glitchcn', `${name}.json`);
+    const fileName = name.endsWith('.json') ? name : `${name}.json`;
+    const filePath = path.join(process.cwd(), 'registry', 'glitchcn', fileName);
     
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: 'not found' }, { status: 404 });
