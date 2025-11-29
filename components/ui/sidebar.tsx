@@ -234,19 +234,22 @@ function Sidebar({
         )}
         {...props}
       >
-        <div
-          data-sidebar="sidebar"
-          data-slot="sidebar-inner"
-          className={cn(
-            "flex h-full w-full flex-col",
-            "bg-[#001a1a] text-emerald-300",
-            "border-r border-emerald-500/50",
-            "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.1),0_0_0_1px_rgba(6,182,212,0.1)]",
-            "relative before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size[100%_4px] before:animate-scanline before:pointer-events-none",
-            "group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm",
-            "dark:bg-[#001a1a] dark:text-emerald-300 dark:border-emerald-500/50"
-          )}
-        >
+      <div
+        data-sidebar="sidebar"
+        data-slot="sidebar-inner"
+        className={cn(
+          "flex h-full w-full flex-col",
+          "bg-[#001a1a] text-emerald-300",
+          "border-r border-emerald-500/50",
+          "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.2),0_0_16px_rgba(6,182,212,0.1)]",
+          "relative overflow-hidden",
+          "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size[100%_4px] before:animate-scanline before:pointer-events-none",
+          "after:absolute after:top-0 after:left-0 after:w-3 after:h-3 after:border-l-2 after:border-t-2 after:border-cyan-400/70",
+          "clip-corners-sidebar",
+          "group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm",
+          "dark:bg-[#001a1a] dark:text-emerald-300 dark:border-emerald-500/50"
+        )}
+      >
           {children}
         </div>
       </div>

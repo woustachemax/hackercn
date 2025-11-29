@@ -1,5 +1,19 @@
 import Link from "next/link";
-import { Terminal } from "lucide-react";
+import { Terminal, BookOpen, Package } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarInset,
+  SidebarSeparator,
+} from "@/components/ui/sidebar";
 
 const components = [
   "alert",
@@ -25,34 +39,68 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-black">
-      <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.02)_50%,transparent_100%)] bg-size[100%_4px] animate-scanline pointer-events-none" />
-      
-      <div className="relative flex">
-        <aside className="w-64 min-h-screen border-r border-emerald-500/30 p-4 sticky top-0">
-          <Link href="/" className="flex items-center gap-2 mb-6 group">
+    <SidebarProvider defaultOpen={true} className="bg-black overflow-x-hidden">
+      <Sidebar variant="inset" collapsible="icon" className="overflow-x-hidden">
+        <SidebarHeader>
+          <Link href="/" className="flex items-center gap-2 group px-2">
             <Terminal className="text-cyan-400" size={24} />
-            <span className="font-mono text-xl font-bold text-emerald-300">Glitchcn</span>
+            <span className="font-mono text-xl font-bold text-emerald-300 group-data-[collapsible=icon]:hidden">
+              Glitchcn
+            </span>
           </Link>
-          
-          <nav className="space-y-1">
-            <div className="font-mono text-xs text-emerald-400/50 uppercase mb-2 px-2">Components</div>
-            {components.map((comp) => (
-              <Link
-                key={comp}
-                href={`/docs/components/${comp}`}
-                className="block px-2 py-1.5 text-sm font-mono text-emerald-300/70 hover:text-emerald-300 hover:bg-emerald-500/10 rounded transition-colors"
-              >
-                {comp}
-              </Link>
-            ))}
-          </nav>
-        </aside>
+        </SidebarHeader>
         
-        <main className="flex-1 p-8">
+        <SidebarContent className="overflow-x-hidden">
+          <SidebarGroup>
+            <SidebarGroupLabel>Documentation</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href="/docs">
+                      <BookOpen className="h-4 w-4" />
+                      <span>Getting Started</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href="/docs/components">
+                      <Package className="h-4 w-4" />
+                      <span>Components</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          <SidebarSeparator />
+
+          <SidebarGroup>
+            <SidebarGroupLabel>Components</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {components.map((comp) => (
+                  <SidebarMenuItem key={comp}>
+                    <SidebarMenuButton asChild>
+                      <Link href={`/docs/components/${comp}`}>
+                        <span className="capitalize">{comp}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
+      
+      <SidebarInset className="bg-black">
+        <main className="flex-1 p-8 overflow-x-hidden">
           {children}
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

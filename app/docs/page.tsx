@@ -1,83 +1,200 @@
 "use client"
 
-import Link from "next/link";
-import { Terminal, Copy, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
+import { Copy, Check, Terminal } from "lucide-react";
 import { useState } from "react";
 
-const components = [
-  "alert", "badge", "button", "card", "command", "dialog",
-  "input", "progress", "separator", "sheet", "sidebar",
-  "skeleton", "table", "tabs", "tooltip"
-];
-
-export default function DocsIndex() {
+export default function GettingStarted() {
   const [copied, setCopied] = useState<string | null>(null);
 
-  const copyInstall = (comp: string) => {
-    navigator.clipboard.writeText(`npx shadcn@latest add https://glitchcn-ui.vercel.app/r/${comp}.json`);
-    setCopied(comp);
+  const copy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(id);
     setTimeout(() => setCopied(null), 2000);
   };
 
+  const componentsJson = `{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "slate",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils"
+  }
+}`;
+
   return (
-    <div className="max-w-6xl space-y-8">
-      <div className="space-y-4">
-        <h1 className="font-mono text-5xl font-bold text-emerald-300">Documentation</h1>
-        <p className="text-xl text-emerald-300/70">
-          Terminal-styled cyberpunk components for your Next.js projects
+    <div className="max-w-4xl space-y-8">
+      <div>
+        <h1 className="text-5xl font-bold font-mono text-emerald-300 mb-2">
+          Getting Started
+        </h1>
+        <p className="text-xl text-emerald-300/70 font-mono">
+          Hollywood's idea of what a hacker's screen looks like
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Quick Start</CardTitle>
+          <CardTitle>What is GlitchCN?</CardTitle>
+          <CardDescription>
+            A terminal-styled cyberpunk component library for Next.js with scanline effects, 
+            glowing borders, and monospace typography.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-emerald-300/70">Install any component directly. No configuration needed.</p>
-          <div className="bg-black border border-emerald-500/30 rounded p-4">
-            <pre className="font-mono text-sm text-emerald-300">
-              npx shadcn@latest add https://glitchcn-ui.vercel.app/r/[component].json
+          <p className="text-emerald-300/70">
+            GlitchCN provides drop-in React components with a distinctive retro-futuristic aesthetic. 
+            All components feature:
+          </p>
+          <ul className="space-y-2 text-emerald-300/70 list-disc list-inside">
+            <li>Animated scanline effects</li>
+            <li>Glowing cyan/emerald borders</li>
+            <li>Monospace typography</li>
+            <li>Dark teal backgrounds (#001a1a)</li>
+            <li>Clipped corner styling</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Prerequisites</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-emerald-300/70">
+            Before installing components, make sure you have:
+          </p>
+          <ul className="space-y-2 text-emerald-300/70 list-disc list-inside">
+            <li>Next.js 14+ project with App Router</li>
+            <li>Tailwind CSS configured</li>
+            <li>TypeScript (recommended)</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Step 1: Create components.json</CardTitle>
+          <CardDescription>
+            Create this file in your project root
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="relative">
+            <button
+              onClick={() => copy(componentsJson, "components-json")}
+              className="absolute top-2 right-2 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+            >
+              {copied === "components-json" ? (
+                <Check className="h-4 w-4 text-emerald-400" />
+              ) : (
+                <Copy className="h-4 w-4 text-emerald-400" />
+              )}
+            </button>
+            <pre className="bg-black/60 p-4 pr-14 rounded border border-emerald-500/20 overflow-x-auto">
+              <code className="text-emerald-300 font-mono text-sm">
+                {componentsJson}
+              </code>
             </pre>
           </div>
         </CardContent>
       </Card>
 
-      <div className="space-y-4">
-        <h2 className="font-mono text-3xl font-bold text-emerald-300">Components</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {components.map((comp) => (
-            <Card key={comp} className="group hover:border-cyan-400/50 transition-colors">
-              <CardContent className="p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <Link
-                    href={`/docs/components/${comp}`}
-                    className="flex items-center gap-2 flex-1"
-                  >
-                    <Terminal size={16} className="text-cyan-400" />
-                    <span className="font-mono text-lg text-emerald-300 group-hover:text-emerald-200 capitalize">
-                      {comp}
-                    </span>
-                  </Link>
-                  <Button 
-                    size="sm" 
-                    onClick={() => copyInstall(comp)}
-                    className="ml-2"
-                  >
-                    {copied === comp ? <Check size={14} /> : <Copy size={14} />}
-                  </Button>
-                </div>
-                <div className="bg-black border border-emerald-500/30 rounded p-2 overflow-x-auto">
-                  <code className="font-mono text-xs text-emerald-300/80">
-                    npx shadcn add glitchcn-ui.vercel.app/r/{comp}.json
-                  </code>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Step 2: Install Components</CardTitle>
+          <CardDescription>
+            Use shadcn CLI to add any component
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-emerald-300/70">
+            Install individual components using the shadcn CLI:
+          </p>
+          <div className="relative">
+            <button
+              onClick={() => copy("npx shadcn@latest add https://glitchcn-ui.vercel.app/r/button.json", "install-cmd")}
+              className="absolute top-2 right-2 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+            >
+              {copied === "install-cmd" ? (
+                <Check className="h-4 w-4 text-emerald-400" />
+              ) : (
+                <Copy className="h-4 w-4 text-emerald-400" />
+              )}
+            </button>
+            <pre className="bg-black/60 p-4 pr-14 rounded border border-emerald-500/20">
+              <code className="text-emerald-300 font-mono text-sm break-all">
+                npx shadcn@latest add https://glitchcn-ui.vercel.app/r/button.json
+              </code>
+            </pre>
+          </div>
+          <p className="text-emerald-300/70 text-sm">
+            Replace <span className="text-cyan-400 font-mono">button</span> with any component name from the sidebar.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Step 3: Use Components</CardTitle>
+          <CardDescription>
+            Import and use in your app
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="relative">
+            <button
+              onClick={() => copy('import { Button } from "@/components/ui/button"\n\nexport default function Page() {\n  return <Button>Click me</Button>\n}', "usage-code")}
+              className="absolute top-2 right-2 p-2 rounded bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors z-10"
+            >
+              {copied === "usage-code" ? (
+                <Check className="h-4 w-4 text-emerald-400" />
+              ) : (
+                <Copy className="h-4 w-4 text-emerald-400" />
+              )}
+            </button>
+            <pre className="bg-black/60 p-4 pr-14 rounded border border-emerald-500/20">
+              <code className="text-emerald-300 font-mono text-sm whitespace-pre">
+{`import { Button } from "@/components/ui/button"
+
+export default function Page() {
+  return <Button>Click me</Button>
+}`}
+              </code>
+            </pre>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <Terminal className="inline-block mr-2 h-5 w-5" />
+            Next Steps
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <p className="text-emerald-300/70">
+            Browse all available components in the sidebar or visit the{" "}
+            <a href="/docs/components" className="text-cyan-400 hover:text-cyan-300 underline">
+              Components
+            </a>{" "}
+            page.
+          </p>
+          <p className="text-emerald-300/70">
+            Each component page includes live previews, installation commands, and usage examples.
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

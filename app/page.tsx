@@ -66,7 +66,7 @@ export default function Home() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button size="sm" asChild onClick={()=>router.push('/docs/c')}>
+                <Button size="sm" asChild onClick={()=>router.push('/docs/components')}>
                   View All
                 </Button>
               </CardFooter>
@@ -373,7 +373,7 @@ export default function Home() {
           <div className="col-span-1 lg:col-span-12">
             <footer className="text-end py-3">
               <p className="font-mono text-xs text-emerald-400/70">
-                 $ Made with 💚 by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
+                  Made without '$$' by <a href="https://www.siddharththakkar.xyz/" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-cyan-400">woustachemax</a>
               </p>
             </footer>
           </div>
