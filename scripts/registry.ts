@@ -3,6 +3,7 @@ import path from 'path';
 
 const componentsDir = path.join(process.cwd(), 'components', 'ui');
 const registryDir = path.join(process.cwd(), 'registry', 'glitchcn');
+const libDir = path.join(process.cwd(), 'lib');
 
 const componentDeps: Record<string, string[]> = {
   alert: ['class-variance-authority'],
@@ -21,6 +22,8 @@ const componentDeps: Record<string, string[]> = {
   tabs: ['@radix-ui/react-tabs'],
   tooltip: ['@radix-ui/react-tooltip'],
 };
+
+const utilsContent = fs.readFileSync(path.join(libDir, 'utils.ts'), 'utf8');
 
 const componentFiles = fs.readdirSync(componentsDir);
 
@@ -43,6 +46,12 @@ componentFiles.forEach((file: string) => {
         content: content,
         type: 'registry:ui',
         target: `components/ui/${file}`
+      },
+      {
+        path: 'lib/utils.ts',
+        content: utilsContent,
+        type: 'registry:lib',
+        target: 'lib/utils.ts'
       }
     ],
     tailwind: {
