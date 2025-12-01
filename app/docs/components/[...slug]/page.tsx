@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Terminal, Info, Copy, Check, AlertTriangle } from "lucide-react";
 import { useState } from "react";
-
+import { Sheet, SheetHeader, SheetDescription, SheetFooter, SheetTrigger, SheetTitle, SheetContent, SheetClose } from "@/components/ui/sheet";
 const docs: Record<string, { 
   title: string; 
   description: string; 
@@ -185,23 +185,51 @@ const docs: Record<string, {
 <Separator />
 <div>Section 2</div>`,
   },
-  sheet: {
-    title: "Sheet",
-    description: "Slide-over panel component",
-    preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
-        Sheet component for side panels
-      </div>
-    ),
-    code: `import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+sheet: {
+  title: "Sheet",
+  description: "Slide-over panel component",
+  preview: (
+<Sheet>
+  <SheetTrigger asChild>
+    <Button>Open Sheet</Button>
+  </SheetTrigger>
+  <SheetContent side="right">
+    <SheetHeader>
+      <SheetTitle>Panel Title</SheetTitle>
+      <SheetDescription>
+        Quick overview of the panel content.
+      </SheetDescription>
+    </SheetHeader>
+
+    <div className="space-y-4 flex-1">
+      <p className="text-emerald-300/80">
+        Welcome to the translucent dashboard panel.
+      </p>
+    </div>
+
+    <SheetFooter>
+      <Button>Action</Button>
+    </SheetFooter>
+  </SheetContent>
+</Sheet>
+
+
+  ),
+  code: `import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
 
 <Sheet>
-  <SheetTrigger>Open</SheetTrigger>
-  <SheetContent>
-    Content here
+  <SheetTrigger>
+    <Button>Open Sheet</Button>
+  </SheetTrigger>
+  <SheetContent side="right">
+    <SheetHeader>
+      <SheetTitle>Panel Title</SheetTitle>
+    </SheetHeader>
+    <p>This is the sheet content.</p>
   </SheetContent>
 </Sheet>`,
-  },
+},
   sidebar: {
     title: "Sidebar",
     description: "Navigation sidebar component",

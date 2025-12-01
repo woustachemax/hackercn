@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
@@ -12,7 +11,8 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         "bg-[#001a1a] text-emerald-300 border-emerald-500/50",
         "placeholder:text-emerald-400/40 placeholder:font-mono",
         "font-mono tracking-wide",
-        "clip-corners-input relative",
+        "[clip-path:polygon(0_4px,4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px))]",
+        "relative",
         "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.1),0_0_0_1px_rgba(6,182,212,0.1)]",
         "focus:border-emerald-400 focus:shadow-[0_0_8px_rgba(6,182,212,0.3),inset_0_1px_0_0_rgba(6,182,212,0.2)]",
         "hover:border-emerald-400/70",
@@ -30,16 +30,3 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
 }
 
 export { Input }
-
-if (typeof document !== "undefined") {
-  const style = document.createElement("style")
-  style.textContent = `
-    .clip-corners-input {
-      clip-path: polygon(
-        0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px,
-        100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px)
-      );
-    }
-  `
-  document.head.appendChild(style)
-}

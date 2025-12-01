@@ -14,9 +14,10 @@ function Progress({
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        "relative h-2 w-full overflow-hidden clip-corners-progress",
+        "relative h-2 w-full overflow-hidden",
         "bg-[#001a1a] border border-emerald-500/30",
         "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.1)]",
+        "clip-path-[polygon(0_2px,2px_0,calc(100%-2px)_0,100%_2px,100%_calc(100%-2px),calc(100%-2px)_100%,2px_100%,0_calc(100%-2px))]",
         "data-[theme=light]:bg-[#001a1a] data-[theme=light]:border-emerald-500/30",
         className
       )}
@@ -29,7 +30,7 @@ function Progress({
           "bg-linear-to-r from-cyan-500 to-emerald-400",
           "shadow-[0_0_8px_rgba(6,182,212,0.4)]",
           "relative",
-          "after:absolute after:inset-0 after:bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.2)_50%,transparent_100%)] after:animate-shimmer"
+          "after:absolute after:inset-0 after:bg-white/20 after:animate-pulse"
         )}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
@@ -38,30 +39,3 @@ function Progress({
 }
 
 export { Progress }
-
-if (typeof document !== "undefined") {
-  const style = document.createElement("style")
-  style.textContent = `
-    .clip-corners-progress {
-      clip-path: polygon(
-        0 2px, 2px 0, calc(100% - 2px) 0, 100% 2px,
-        100% calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 0 calc(100% - 2px)
-      );
-    }
-    
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-      100% {
-        background-position: 200% 0;
-      }
-    }
-    
-    .animate-shimmer {
-      background-size: 200% 100%;
-      animation: shimmer 2s linear infinite;
-    }
-  `
-  document.head.appendChild(style)
-}

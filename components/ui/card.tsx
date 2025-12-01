@@ -6,11 +6,13 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card"
       className={cn(
-        "bg-[#001a1a] text-emerald-300 border border-emerald-500/50 clip-corners relative overflow-hidden group",
+        "bg-[#001a1a] text-emerald-300 border border-emerald-500/50 [clip-path:polygon(0_8px,8px_0,calc(100%-8px)_0,100%_8px,100%_calc(100%-8px),calc(100%-8px)_100%,8px_100%,0_calc(100%-8px))] relative overflow-hidden group",
         "shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_4px_24px_rgba(0,0,0,0.4)]",
         "hover:border-emerald-400/70 hover:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.3),0_0_16px_rgba(6,182,212,0.3),0_0_32px_rgba(6,182,212,0.15)]",
         "transition-all duration-300",
-        "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size-[100%_4px] before:animate-scanline before:pointer-events-none",
+        "before:absolute before:inset-0 before:bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] before:bg-size[100%_4px] before-animate[scanline_8s_linear_infinite] before:pointer-events-none before:z-0",
+        "after:content-[''] after:absolute after:top-0 after:left-0 after:w-3 after:h-3 after:border-l-2 after:border-t-2 after:border-cyan-400/60 after:transition-all after:duration-300 hover:after:w-4 hover:after:h-4 hover:after:border-cyan-300",
+        "*:relative *:z-1",
         "data-[theme=light]:bg-[#001a1a] data-[theme=light]:text-emerald-300 data-[theme=light]:border-emerald-500/50",
         "data-[theme=light]:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_4px_24px_rgba(0,0,0,0.4)]",
         "data-[theme=light]:hover:border-emerald-400/70 data-[theme=light]:hover:shadow-[inset_0_1px_0_0_rgba(6,182,212,0.3),0_0_16px_rgba(6,182,212,0.3),0_0_32px_rgba(6,182,212,0.15)]",
@@ -44,7 +46,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
       className={cn(
         "leading-none font-mono font-bold tracking-wider uppercase text-sm",
         "text-emerald-300 data-[theme=light]:text-emerald-300",
-        "group-hover:text-shadow-glow transition-all duration-300",
+        "group-hover:[text-shadow:0_0_8px_rgba(6,182,212,0.6)] transition-all duration-300",
         className
       )}
       {...props}
@@ -116,65 +118,4 @@ export {
   CardAction,
   CardDescription,
   CardContent,
-}
-
-if (typeof document !== "undefined") {
-  const style = document.createElement("style")
-  style.textContent = `
-    .clip-corners {
-      clip-path: polygon(
-        0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px,
-        100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px)
-      );
-    }
-    
-    @keyframes scanline {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 0 200%;
-      }
-    }
-    
-    .animate-scanline {
-      animation: scanline 8s linear infinite;
-    }
-    
-    .text-shadow-glow {
-      text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
-    }
-    
-    [data-slot="card"] {
-      position: relative;
-    }
-    
-    [data-slot="card"]::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 12px;
-      height: 12px;
-      border-left: 2px solid rgba(6, 182, 212, 0.6);
-      border-top: 2px solid rgba(6, 182, 212, 0.6);
-      transition: all 0.3s ease;
-    }
-    
-    [data-slot="card"]:hover::after {
-      width: 16px;
-      height: 16px;
-      border-color: rgba(34, 211, 238, 1);
-    }
-    
-    [data-slot="card"]::before {
-      z-index: 0;
-    }
-    
-    [data-slot="card"] > * {
-      position: relative;
-      z-index: 1;
-    }
-  `
-  document.head.appendChild(style)
 }
