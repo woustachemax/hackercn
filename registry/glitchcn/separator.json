@@ -4,7 +4,6 @@
   "dependencies": [
     "@radix-ui/react-separator",
     "lucide-react"
-
   ],
   "devDependencies": [],
   "registryDependencies": ["utils"],
