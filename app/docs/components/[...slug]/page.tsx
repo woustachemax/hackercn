@@ -189,30 +189,18 @@ sheet: {
   title: "Sheet",
   description: "Slide-over panel component",
   preview: (
-<Sheet>
-  <SheetTrigger asChild>
-    <Button>Open Sheet</Button>
-  </SheetTrigger>
-  <SheetContent side="right">
+ <Sheet>
+  <SheetTrigger>Open</SheetTrigger>
+  <SheetContent>
     <SheetHeader>
-      <SheetTitle>Panel Title</SheetTitle>
+      <SheetTitle>Are you absolutely sure?</SheetTitle>
       <SheetDescription>
-        Quick overview of the panel content.
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
       </SheetDescription>
     </SheetHeader>
-
-    <div className="space-y-4 flex-1">
-      <p className="text-emerald-300/80">
-        Welcome to the translucent dashboard panel.
-      </p>
-    </div>
-
-    <SheetFooter>
-      <Button>Action</Button>
-    </SheetFooter>
   </SheetContent>
 </Sheet>
-
 
   ),
   code: `import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
@@ -266,12 +254,58 @@ import { Button } from "@/components/ui/button"
   table: {
     title: "Table",
     description: "Data table component",
-    preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
-        Table component for tabular data
-      </div>
-    ),
-    code: `import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+preview: (
+  <div className="relative w-full h-80 flex items-center justify-center p-4">
+    <div
+      className="relative w-full h-full bg-[#001a1a] text-emerald-300 border border-emerald-500/50 clip-corners-table overflow-hidden group 
+      shadow-[inset_0_1px_0_0_rgba(6,182,212,0.2),0_0_0_1px_rgba(6,182,212,0.15),0_4px_24px_rgba(0,0,0,0.4)]"
+    >
+      <div
+        className="absolute inset-0 bg-[linear-gradient(0deg,transparent_0%,rgba(6,182,212,0.03)_50%,transparent_100%)] 
+        bg-position[100%_4px] animate-scanline pointer-events-none z-0"
+      />
+
+      <table className="w-full caption-bottom text-sm font-mono relative z-10">
+        <thead className="[&_tr]:border-b [&_tr]:border-emerald-500/30">
+          <tr>
+            <th className="h-10 px-4 text-left align-middle font-bold uppercase tracking-wider text-xs group-hover:text-shadow-glow">
+              ID
+            </th>
+            <th className="h-10 px-4 text-left align-middle font-bold uppercase tracking-wider text-xs">
+              Status
+            </th>
+            <th className="h-10 px-4 text-left align-middle font-bold uppercase tracking-wider text-xs">
+              Task
+            </th>
+          </tr>
+        </thead>
+        <tbody className="[&_tr:last-child]:border-0">
+          <tr className="border-b border-emerald-500/30 hover:bg-[#002626]">
+            <td className="p-3 align-middle text-emerald-200/90">0x001A</td>
+            <td className="p-3 align-middle text-red-400">
+              <span className="text-shadow-glow-red">ERROR</span>
+            </td>
+            <td className="p-3 align-middle text-emerald-200/90">
+              Initialize Subsystem
+            </td>
+          </tr>
+          <tr
+            className="border-b border-emerald-500/30 hover:bg-[#002626] data-[state=selected]:bg-[#002626]"
+            data-state="selected"
+          >
+            <td className="p-3 align-middle text-emerald-200/90">0x002B</td>
+            <td className="p-3 align-middle text-cyan-400/90 font-bold">
+              RUNNING
+            </td>
+            <td className="p-3 align-middle text-emerald-200/90">
+              Data Fetch Cycle
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+),    code: `import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 
 <Table>
   <TableBody>
@@ -285,11 +319,40 @@ import { Button } from "@/components/ui/button"
   tabs: {
     title: "Tabs",
     description: "Tabbed content container",
-    preview: (
-      <div className="text-emerald-300/70 text-sm font-mono">
-        Tabs component for organizing content
+   preview: (
+  <div className="relative w-full h-32 flex items-start justify-center p-4">
+    <div
+      data-slot="tabs-list"
+      className="inline-flex h-9 w-fit items-center justify-center p-[3px] gap-1
+      bg-[#001a1a] border border-emerald-500/50 clip-corners-tabs relative overflow-hidden"
+    >
+      <div
+        data-slot="tabs-trigger"
+        className="inline-flex h-[calc(100%-1px)] items-center px-3 py-1 text-sm font-medium transition-all duration-300
+        font-mono uppercase tracking-wider text-emerald-400/70 hover:text-emerald-300 hover:bg-[#002626]/50"
+      >
+        Tab One
       </div>
-    ),
+      <div
+        data-slot="tabs-trigger"
+        data-state="active"
+        className="inline-flex h-[calc(100%-1px)] items-center px-3 py-1 text-sm font-medium transition-all duration-300
+        font-mono uppercase tracking-wider text-emerald-300 bg-[#002626] border-emerald-500/50 clip-corners-trigger
+        shadow-[inset_0_0_16px_rgba(6,182,212,0.15),0_0_8px_rgba(6,182,212,0.2)]"
+      >
+        Active
+      </div>
+      <div
+        data-slot="tabs-trigger"
+        data-state="active"
+        className="inline-flex h-[calc(100%-1px)] items-center px-3 py-1 text-sm font-medium transition-all duration-300
+        font-mono uppercase tracking-wider text-emerald-400/70 hover:text-emerald-300 hover:bg-[#002626]/50"
+      >
+        Info
+      </div>
+    </div>
+  </div>
+),
     code: `import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 <Tabs defaultValue="tab1">

@@ -746,21 +746,3 @@ export {
   useSidebar,
 }
 
-if (typeof document !== "undefined") {
-  const style = document.createElement("style")
-  style.textContent = `
-    @keyframes scanline {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: 0 200%;
-      }
-    }
-    
-    .animate-scanline {
-      animation: scanline 8s linear infinite;
-    }
-  `
-  document.head.appendChild(style)
-}
