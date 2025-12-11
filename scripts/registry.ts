@@ -24,7 +24,6 @@ const componentDeps: Record<string, string[]> = {
   tooltip: ['@radix-ui/react-tooltip'],
 };
 
-// Shared deps used by utils and multiple components
 const baseDeps: string[] = ['clsx', 'tailwind-merge', 'lucide-react'];
 
 const utilsContent = fs.readFileSync(path.join(libDir, 'utils.ts'), 'utf8');
